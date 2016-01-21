@@ -1,0 +1,35 @@
+<%= form_for(@combo) do |f| %>
+  <% if @combo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@combo.errors.count, "error") %> prohibited this combo from being saved:</h2>
+
+      <ul>
+      <% @combo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :state_id %><br>
+    <%= f.collection_select :state_id, State.all, :id, :name, prompt: true, hide_label: true %>
+  </div>
+  <div id="city">
+    <select id="combo_city_id" type="text"/></select>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript" defer>
+$('#combo_state_id').on('change', function() {
+  $.getJSON("/states/" + $(this).val() + '/cities.json', function(data) {
+    $('#combo_city_id').empty();
+    $.each(data, function(i,item){
+      $('#combo_city_id').append('<option value="' + item.id + '">' + item.name + '</option>');
+    });
+  });
+});
+</script>

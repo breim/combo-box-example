@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>State:</strong>
+  <%= @combo.state %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @combo.city %>
+</p>
+
+<%= link_to 'Edit', edit_combo_path(@combo) %> |
+<%= link_to 'Back', combos_path %>
